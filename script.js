@@ -1,11 +1,10 @@
-// Function to simulate a promise that resolves after a random time (between 1 and 3 seconds)
+// Function to create a promise that resolves after a random time between 1 and 3 seconds
 function createRandomPromise(promiseName) {
-  const timeTaken = Math.random() * 2 + 1; // Random time between 1 and 3 seconds
-
-  return new Promise((resolve) => {
+  const timeTaken = (Math.random() * 2 + 1).toFixed(3); // Random time between 1 and 3 seconds
+  return new Promise(resolve => {
     setTimeout(() => {
-      resolve({ name: promiseName, time: timeTaken.toFixed(3) }); // Resolve with the time taken (rounded to 3 decimal places)
-    }, timeTaken * 1000);
+      resolve({ name: promiseName, time: timeTaken });
+    }, timeTaken * 1000); // Wait for timeTaken seconds
   });
 }
 
@@ -19,16 +18,16 @@ function handlePromises() {
   const promise2 = createRandomPromise('Promise 2');
   const promise3 = createRandomPromise('Promise 3');
 
-  // Wait for all promises to resolve
+  // Wait for all promises to resolve using Promise.all
   Promise.all([promise1, promise2, promise3])
     .then(results => {
       // Remove the loading text once promises are resolved
       loadingText.remove();
 
-      // Total time taken for all promises to resolve
+      // Calculate total time taken for all promises
       const totalTime = results.reduce((sum, result) => sum + parseFloat(result.time), 0).toFixed(3);
 
-      // Create new rows for the table with the promise results
+      // Create new rows for each resolved promise and append them to the table
       results.forEach(result => {
         const row = document.createElement('tr');
         row.innerHTML = `<td>${result.name}</td><td>${result.time}</td>`;
@@ -45,5 +44,5 @@ function handlePromises() {
     });
 }
 
-// Call the function to start the promise handling
+// Call the function to start handling the promises and table
 handlePromises();
