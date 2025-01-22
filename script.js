@@ -1,4 +1,3 @@
-//your JS code here. If required.
 // Function to simulate a promise that resolves after a random time (between 1 and 3 seconds)
 function createRandomPromise(promiseName) {
   const timeTaken = Math.random() * 2 + 1; // Random time between 1 and 3 seconds
